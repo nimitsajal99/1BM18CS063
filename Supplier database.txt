@@ -1,0 +1,44 @@
+CREATE DATABASE supplier; 
+
+USE supplier;
+
+CREATE TABLE supplier
+(
+	sid INT(10),
+    sname VARCHAR(256),
+    address VARCHAR(256),
+    PRIMARY KEY (sid)
+);
+
+CREATE TABLE parts
+(
+	pid INT(10),
+    pname VARCHAR(256),
+    color VARCHAR(256),
+    PRIMARY KEY (pid)
+);
+
+CREATE TABLE catalog
+(
+	sid INT(10),
+    pid INT(10),
+    cost REAL(10,2),
+    PRIMARY KEY (sid, pid),
+    FOREIGN KEY (sid) REFERENCES supplier (sid),
+    FOREIGN KEY (pid) REFERENCES parts (pid)
+);
+
+
+INSERT INTO supplier VALUES ('10001', 'Acme Widget', 'Bangalore');
+INSERT INTO supplier VALUES ('10002', 'Johns', 'Kolkata');
+
+INSERT INTO parts VALUES ('20001', 'Book', 'Red');
+INSERT INTO parts VALUES ('20002', 'Pen', 'Green');
+
+INSERT INTO catalog VALUES ('10001', '20001', '10');
+INSERT INTO catalog VALUES ('10002', '20002', '20');
+
+
+SELECT* FROM supplier;
+SELECT* FROM parts;
+SELECT* FROM catalog;

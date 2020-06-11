@@ -1,0 +1,69 @@
+CREATE DATABASE insurance;
+
+USE insurance;
+
+CREATE TABLE person
+(
+	driver_id VARCHAR(10),
+    name VARCHAR(256),
+    address VARCHAR(256),
+    PRIMARY KEY (driver_id)
+);
+
+CREATE TABLE car
+(
+	reg_num VARCHAR(10),
+    model VARCHAR(256),
+    year int(4),
+    PRIMARY KEY (reg_num)
+);
+
+CREATE TABLE accident
+(
+	report_num int(10),
+    accident_date date,
+    location VARCHAR(256),
+    PRIMARY KEY (report_num)
+);
+
+CREATE TABLE owns
+(
+	driver_id VARCHAR(10),
+    reg_num VARCHAR(256),
+    PRIMARY KEY (driver_id, reg_num),
+    FOREIGN KEY (driver_id) REFERENCES person (driver_id),
+    FOREIGN KEY (reg_num) REFERENCES car (reg_num)
+);
+
+CREATE TABLE participated
+(
+	driver_id VARCHAR(10),
+    reg_num VARCHAR(256),
+	report_num int(10),
+    damage_amount int(10),
+    PRIMARY KEY (driver_id, reg_num, report_num),
+	FOREIGN KEY (driver_id) REFERENCES person (driver_id),
+	FOREIGN KEY (reg_num) REFERENCES car (reg_num),
+    FOREIGN KEY (report_num) REFERENCES accident (report_num)
+);
+
+INSERT INTO person VALUES ('A01', 'Richard', 'Srinivas Nagar');
+INSERT INTO person VALUES ('A02', 'Pradeep', 'Rajaji Nagar');
+
+INSERT INTO car VALUES ('KA052250', 'Indica', '1990');
+INSERT INTO car VALUES ('KA031181', 'Lancer', '1957');
+
+INSERT INTO accident VALUES ('11', '2003-01-01', 'Mysore Road');
+INSERT INTO accident VALUES ('12', '2004-02-02', 'South Circle Road');
+
+INSERT INTO owns VALUES ('A01', 'KA052250');
+INSERT INTO owns VALUES ('A02', 'KA031181');
+
+INSERT INTO participated VALUES ('A01', 'KA052250', '11', '10000');
+INSERT INTO participated VALUES ('A02', 'KA031181', '12', '50000');
+
+SELECT* FROM person;
+SELECT* FROM car;
+SELECT* FROM accident;
+SELECT* FROM owns;
+SELECT* FROM participated;

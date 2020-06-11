@@ -1,0 +1,59 @@
+CREATE DATABASE student_faculty;
+
+USE student_faculty;
+
+CREATE TABLE student
+(
+	s_num INT(10),
+    s_name VARCHAR(256),
+    major VARCHAR(256),
+    lvl VARCHAR(256),
+    age INT(10),
+    PRIMARY KEY (s_num)
+);
+
+CREATE TABLE faculty
+(
+	f_id INT(10),
+    f_name VARCHAR(256),
+	dept_id INT(10),
+    PRIMARY KEY (f_id)
+);
+
+CREATE TABLE class
+(
+	c_name VARCHAR(256),
+    meets_at DATE,
+    room VARCHAR(256),
+    f_id INT(10),
+    PRIMARY KEY (c_name),
+    FOREIGN KEY (f_id) REFERENCES faculty (f_id)
+);
+
+CREATE TABLE enrolled
+(
+	s_num INT(10),
+    c_name VARCHAR(256),
+    PRIMARY KEY (s_num, c_name),
+    FOREIGN KEY (s_num) REFERENCES student (s_num),
+    FOREIGN KEY (c_name) REFERENCES class (c_name)
+);
+
+
+INSERT INTO student VALUES ('3' , 'Jacob', 'CV', 'Sr', '20');
+INSERT INTO student VALUES ('5', 'Rahul', 'CS', 'Jr', '20');
+
+INSERT INTO faculty VALUES ('11', 'Harish', '1000');
+INSERT INTO faculty VALUES ('12', 'MV', '1000');
+
+INSERT INTO class VALUES ('class1', '12/11/15', 'R1', '11');
+INSERT INTO class VALUES ('class10', '12/11/15', 'R128', '12');
+
+INSERT INTO enrolled VALUES ('3', 'class1');
+INSERT INTO enrolled VALUES ('5', 'class10');
+
+
+SELECT* FROM student;
+SELECT* FROM faculty;
+SELECT* FROM class;
+SELECT* FROM enrolled;

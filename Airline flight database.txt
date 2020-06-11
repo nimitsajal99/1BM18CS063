@@ -1,0 +1,59 @@
+CREATE DATABASE airline_flight;
+
+USE airline_flight;
+
+CREATE TABLE flights
+(
+	f_no INT(10),
+    f_from VARCHAR(256),
+    f_to VARCHAR(256),
+    distance INT(10),
+    departs TIME,
+    arrives TIME,
+    price INT(10),
+    PRIMARY KEY (f_no)
+);
+
+CREATE TABLE aircraft
+(
+	a_id INT(10),
+    a_name VARCHAR(256),
+	cruising_range INT(10),
+    PRIMARY KEY (a_id)
+);
+
+CREATE TABLE employees
+(
+	e_id INT(10),
+    e_name VARCHAR(256),
+    salary INT(10),
+    PRIMARY KEY (e_id)
+);
+
+CREATE TABLE certified
+(
+	e_id INT(10),
+    a_id INT(10),
+    PRIMARY KEY (e_id, a_id),
+    FOREIGN KEY (e_id) REFERENCES employees (e_id),
+    FOREIGN KEY (a_id) REFERENCES aircraft (a_id)
+);
+
+
+INSERT INTO flights VALUES ('101', 'Bangalore', 'Delhi', '2500', TIMESTAMP '2005-05-13 07:15:31', TIMESTAMP '2005-05-13 17:15:31', '5000');
+INSERT INTO flights VALUES ('102', 'Bangalore', 'Lucknow', '3000', TIMESTAMP '2005-05-13 07:15:31', TIMESTAMP '2005-05-13 11:15:31', '6000');
+
+INSERT INTO aircraft VALUES ('101', '747', '3000');
+INSERT INTO aircraft VALUES ('102', 'Boeing', '900');
+
+INSERT INTO employees VALUES ('701', 'A', '50000');
+INSERT INTO employees VALUES ('702', 'B', '100000');
+
+INSERT INTO certified VALUES ('701', '101');
+INSERT INTO certified VALUES ('701', '102');
+
+
+SELECT* FROM flights;
+SELECT* FROM aircraft;
+SELECT* FROM employees;
+SELECT* FROM certified;
